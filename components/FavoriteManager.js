@@ -1,6 +1,7 @@
 // for saving, getting, and clearing liked breeds from local storage
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 
 export const saveLikedBreeds = async (likedBreeds) => {
     try {
@@ -20,6 +21,7 @@ export const saveLikedBreeds = async (likedBreeds) => {
   export const getLikedBreeds = async () => {
     try {
       const likedBreeds = await AsyncStorage.getItem('likedBreeds');
+      console.log('GET LIKED BREEDS:', likedBreeds);
       return likedBreeds ? JSON.parse(likedBreeds) : [];
     } catch (error) {
       console.log('Error getting liked breeds:', error);

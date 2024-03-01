@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import BreedCard from '../components/BreedCard';
 export default function InfoScreen({route}) { // saa parametrina route-objektin, joka sisältää tiedot, jotka on lähetetty navigointiin liittyen
 

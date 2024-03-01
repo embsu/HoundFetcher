@@ -3,18 +3,16 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import HandleFavorites from '../components/HandleFavorites';
 
 
-export default function FavoritesScreen({}) {
+export default function FavoritesScreen({ likedBreeds }) {
 
 
 
   return (
     <ScrollView>
-    <View>
-
-<Text style={styles.faves}>Your favorite breeds</Text>
-      <HandleFavorites/>
-  
-    </View>
+      <View>
+        <Text style={styles.faves}>Your favorite breeds</Text>
+        <HandleFavorites likedBreeds={likedBreeds}/>
+      </View>
     </ScrollView>
   );
 };

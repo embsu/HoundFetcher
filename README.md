@@ -30,8 +30,10 @@ HoundFetcher on mobiilisovellus, jolla käyttäjät voivat etsiä eri koirarotuj
 - npm install react-native-dropdown-picker
 - npx expo install expo-font
 - npx expo install @react-native-async-storage/async-storage
-4. Käynnistä sovellus komennolla npx expo start
-5. Käytä Expo Go -sovellusta skannaamalla QR-koodi
+4. Luo .env tiedosto jo lisää sinne API avain
+- EXPO_PUBLIC_API_KEY = ...
+5. Käynnistä sovellus komennolla npx expo start
+6. Käytä Expo Go -sovellusta skannaamalla QR-koodi
 
 <h3> Käyttö </h3>
 

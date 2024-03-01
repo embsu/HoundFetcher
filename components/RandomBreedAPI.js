@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function RandomBreedAPI() {
 
-  const [randomBreed, setRandomBreed] = useState('');
+
   const navigation = useNavigation();
 
   const api = {

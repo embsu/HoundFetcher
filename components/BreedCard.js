@@ -3,15 +3,11 @@ import { View, Text, Image, Button, ActivityIndicator, TouchableOpacity, Modal, 
 import { StyleSheet } from 'react-native';
 import { getLikedBreeds, saveLikedBreeds } from './FavoriteManager';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native' //takaisinpäin tullessa renderöidään uudelleen
 
 import LikeButton from './FavButton';
 
-export default function BreedCard({ breedName, selBreedId }) { // breedname is a prop passed from the parent component called searchbar.js(myöhemmin allbreedsapi.js)
-
-
-  const [liked, setLiked] = useState(false);
-
+export default function BreedCard({ breedName, selBreedId}) { // breedname is a prop passed from the parent component called searchbar.js(myöhemmin allbreedsapi.js)
 
   const [breedImage, setBreedImage] = useState('')
   const [breedGroup, setBreedGroup] = useState('')
@@ -21,18 +17,17 @@ export default function BreedCard({ breedName, selBreedId }) { // breedname is a
   const [breedHeightMetric, setBreedHeight] = useState('')
   const [breedOrigin, setBreedOrigin] = useState('')
   const [breedBredFor, setBreedBredFor] = useState('')
-
   const [imageIndex, setImageIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   
-
-
   const api = {
     key: process.env.EXPO_PUBLIC_API_KEY,
   }
 
   // fetch breed info with 10 pics, apikey needed
-  useEffect(() => {
+
+  useFocusEffect(
+    React.useCallback(() => {
     setIsLoading(true)
     console.log('BREEDCARDISSA OLLAAAN', selBreedId, breedName)
     fetch(`https://api.thedogapi.com/v1/images/search?limit=10&breed_ids=${selBreedId}
@@ -53,24 +48,24 @@ export default function BreedCard({ breedName, selBreedId }) { // breedname is a
       .catch(error => {
         console.error('Error fetching breed info:', error);
         setIsLoading(false)
-      }
-      );
-
-  }, [selBreedId]); 
+      });
+  }, [selBreedId])
+  );
 
   const handleNextImage = () => {
-    // ACTIVITY INDICATOR PUUTTUU
+
     setImageIndex((prevIndex) => (prevIndex + 1) % breedImage.length);
   };
   const handlePrevImage = () => {
     setImageIndex((prevIndex) => (prevIndex - 1 + breedImage.length) % breedImage.length);
   };
 
-  if (isLoading) {
-    return <ActivityIndicator size="large" color="#AE8781" />;
-  }
 
-  
+
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" color="#AE8781" style={styles.propelli}/>;
+  }
 
   return (
     <View style={styles.BCStyle}>
@@ -80,6 +75,7 @@ export default function BreedCard({ breedName, selBreedId }) { // breedname is a
 
         <Text style={styles.BreedTitle}>{breedName}</Text>
         <LikeButton 
+        
         breedLikedId = {selBreedId} 
         breedLikedName = {breedName}/>
       </View>
@@ -105,7 +101,8 @@ export default function BreedCard({ breedName, selBreedId }) { // breedname is a
 
 
       <View style={styles.breedcardInfo}>
-        {/* eli jos nämä on tyhjiä, niin ei näytetä */}
+
+        {/* eli jos alla olevat tyhjiä, niin ei näytetä niitä ollenkaan*/}
 
         {breedGroup && breedGroup.trim() !== '' && (
           <Text style={styles.font}>
@@ -163,6 +160,8 @@ const styles = StyleSheet.create({
     margin: 18,
     backgroundColor: '#d0e1dd',
     borderRadius: 18,
+    borderColor: '#78767B',
+    borderWidth: 1,
   },
  
   nimiFavecontainer: {
@@ -231,6 +230,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     color: '#6F6E71',
   },
+
+  propelli: {
+    marginTop: 100,
+  }
 
 });
 

@@ -3,7 +3,7 @@ import { Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { saveLikedBreeds, getLikedBreeds } from './FavoriteManager';
 
-const LikeButton = ({ breedLikedId, breedLikedName }) => {
+const LikeButton = ({ breedLikedId, breedLikedName, likedBreeds }) => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const LikeButton = ({ breedLikedId, breedLikedName }) => {
     };
 
     fetchData();
-  }, [breedLikedId]);
+  }, [breedLikedId, likedBreeds]);
 
   const toggleLike = async () => {
     if (!breedLikedName) {
@@ -34,7 +34,7 @@ const LikeButton = ({ breedLikedId, breedLikedName }) => {
         // Remove the breed from likedBreeds if it's already liked
         const updatedLikedBreeds = likedBreeds.filter((breed) => breed.id !== breedLikedId);
         await saveLikedBreeds(updatedLikedBreeds);
-        console.log('Removed breed from likedBreeds:', breedLikedId);
+        console.log('Removed breed from likedBreeds:', breedLikedId, breedLikedName);
       } else {
         // Add the breed to likedBreeds
         const updatedLikedBreeds = [...likedBreeds, { id: breedLikedId, name: breedLikedName }];
